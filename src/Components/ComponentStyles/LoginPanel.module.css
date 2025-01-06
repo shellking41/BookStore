@@ -1,0 +1,75 @@
+.center {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.521);
+  z-index: 99999;
+}
+
+.PanelContainer {
+  box-shadow: var(--Shadow);
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Tényleges középre helyezés */
+  border-radius: 20px;
+  width: 30%;
+  height: 400px;
+  overflow: hidden;
+  min-width: 120px;
+  max-width: 400px;
+}
+
+.PanelContainer input {
+  margin: auto;
+  width: 90%;
+  border-radius: 20px;
+  border: 2px solid var(--BaseColor);
+  padding: 5px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: rgb(255, 255, 255) !important;
+  margin-bottom: 20px;
+}
+.PanelContainer h1 {
+  height: 50px;
+}
+.PanelContainer h1,
+p,
+label {
+  text-align: center;
+}
+.panelForm {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 100px);
+}
+
+.panelForm button {
+  width: 80%;
+  height: 50px;
+  font-size: clamp(1rem, 5vw, 2rem);
+  font-weight: bolder;
+  margin: auto;
+  border-radius: 20px;
+  background-color: var(--BaseColor);
+  border: 2px solid rgb(221, 221, 221);
+  color: white;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.116);
+}
+
+.signUpContainer {
+  margin-top: auto;
+}
+.signUpContainer p {
+  color: rgba(128, 128, 128, 0.5);
+}
+.signUpContainer > p:nth-of-type(2) {
+  cursor: pointer;
+  color: rgba(128, 0, 128, 0.5);
+  text-decoration: underline;
+}
