@@ -26,22 +26,23 @@ function MainPage() {
       </>
     );
   }
-
-  if (localStorage.getItem("Role") === "Admin") {
+  if (localStorage.getItem("Password") == "admin" && localStorage.getItem("Email") == "admin@admin") {
     return (
       <>
         <NavBar />
-        <div></div>
-        <AddNewBookButton />
+
         <PreviewBar />
+        <AddNewBookButton />
         <AllBookList />
       </>
     );
   }
+
   return (
     <>
       <NavBar />
       <PreviewBar />
+
       <AllBookList />
     </>
   );

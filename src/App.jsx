@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RegisterPanel from "./Pages/RegisterPanel/RegisterPanel";
@@ -11,10 +11,16 @@ import UserInfo from "./Pages/UserInfo/UserInfo";
 export const BooksContext = createContext();
 
 function App() {
-  const [AllBookListState, setAllBookListState] = useState();
+  const [AllBookListState, setAllBookListState] = useState([]);
+  //localStorage.setItem("Products", JSON.stringify([]));
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
+  useEffect(() => {
+    console.log(email);
+  }, [email]);
   return (
-    <BooksContext.Provider value={{ AllBookListState, setAllBookListState }}>
+    <BooksContext.Provider value={{ AllBookListState, setAllBookListState, email, setEmail, password, setPassword }}>
       <Router>
         <Routes>
           <Route path="/Register" element={<RegisterPanel />}></Route>

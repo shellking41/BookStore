@@ -13,49 +13,42 @@ import RentBookButton from "./UI/RentBookButton";
 import Style from "../Pages/MainPage/MainPage.module.css";
 
 function AllBookList() {
-  const { AllBookListState, setAllBookListState } = useContext(BooksContext);
-  const { GetApi } = useGetApi();
+  const [AllBookListState, setAllBookListState] = useState(JSON.parse(localStorage.getItem("Products")));
 
   const [CurrentPageState, setCurrentPageState] = useState(localStorage.getItem("CurrentPage"));
   const [UpdateRequired, setUpdateRequired] = useState({ WantToUpdate: false, id: 0 });
+
+  if (!localStorage.getItem("Products")) {
+    localStorage.setItem("Products", JSON.stringify([]));
+    setAllBookListState(JSON.parse(localStorage.getItem("Products")));
+  }
 
   if (!CurrentPageState) {
     localStorage.setItem("CurrentPage", 1);
   }
 
   useEffect(() => {
-    try {
-      const AllBooks = async () => {
-        setAllBookListState(await GetApi(`http://bookstoreapiazure.azurewebsites.net/api/Book/All?page=${CurrentPageState}&pageSize=${2}`));
-      };
-      AllBooks();
-    } catch (error) {
-      new Error("Something went Wrong");
-    }
-  }, [CurrentPageState]);
-
-  useEffect(() => {
     console.log(AllBookListState);
   }, [AllBookListState]);
 
-  if (!(AllBookListState && AllBookListState.pageNumber == CurrentPageState)) {
+  if (!AllBookListState) {
     return <p>Wait</p>;
   }
 
-  if (localStorage.getItem("Role") === "Admin") {
+  if (localStorage.getItem("Password") == "admin" && localStorage.getItem("Email") == "admin@admin") {
     return (
       <>
         <div className={Style.allBookList}>
-          {AllBookListState.items.map((item) => {
+          {AllBookListState.map((item, index) => {
             return (
               <div key={uuidv4()}>
-                <p>{item.title}</p>
+                <p>{item.Title}</p>
                 <BookProperties item={item} />
-                <RentBookButton id={item.id} />
-                <img src={item.description} alt="" />
-                <DeleteBookButton id={item.id} />
-                <UpdateBookButton id={item.id} setUpdateRequired={setUpdateRequired} />
-                {UpdateRequired.WantToUpdate && UpdateRequired.id === item.id && <UpdateBookForm id={item.id} setUpdateRequired={setUpdateRequired} />}
+                <RentBookButton id={index} />
+                <img src={item.Description} alt="" />
+                <DeleteBookButton id={index} />
+                <UpdateBookButton id={index} setUpdateRequired={setUpdateRequired} />
+                {UpdateRequired.WantToUpdate && UpdateRequired.id === index && <UpdateBookForm id={index} setUpdateRequired={setUpdateRequired} />}
               </div>
             );
           })}
@@ -71,13 +64,13 @@ function AllBookList() {
   return (
     <>
       <div>
-        {AllBookListState.items.map((item) => {
+        {AllBookListState.map((item, index) => {
           return (
             <div key={uuidv4()}>
-              <p>{item.title}</p>
+              <p>{item.Title}</p>
               <BookProperties item={item} />
-              <RentBookButton id={item.id} />
-              <img src={item.description} alt="" />
+              <RentBookButton id={index} />
+              <img src={item.Description} alt="" />
             </div>
           );
         })}

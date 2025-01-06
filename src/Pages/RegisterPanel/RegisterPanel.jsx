@@ -11,7 +11,6 @@ function RegisterPanel() {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
 
-  const { FetchData } = usePostApi();
   const { CheckIfItValid, Error } = useRegisterInputValid();
 
   const HandleChangeInput = (e, setState) => {
@@ -23,7 +22,6 @@ function RegisterPanel() {
     e.preventDefault();
 
     if (CheckIfItValid(email, password, confirmPassword)) {
-      FetchData("http://bookstoreapiazure.azurewebsites.net/api/Auth/Register", { Email: email, Password: password, ConfirmPassword: confirmPassword }, "TEXT");
       Navigate("/");
     } else {
       console.log("nem jo");

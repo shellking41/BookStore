@@ -11,19 +11,12 @@ function LogOutButton() {
   const AccessToken = localStorage.getItem("AccessToken");
 
   const handleLogOut = async () => {
-    try {
-      await DeleteApi("http://bookstoreapiazure.azurewebsites.net/api/Auth/Revoke", AccessToken);
+    localStorage.clear();
 
-      localStorage.clear();
-
-      if (!localStorage.getItem("AccessToken")) {
-        localStorage.removeItem("CurrentPage");
-      }
-      window.location.reload();
-      // Navigation("/", { replace: true });
-    } catch (error) {
-      console.log("nem jo");
+    if (!localStorage.getItem("AccessToken")) {
+      localStorage.removeItem("CurrentPage");
     }
+    window.location.reload();
   };
   return <MdLogout onClick={handleLogOut} className={Style.Icon} size={30} />;
 }
