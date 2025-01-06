@@ -13,31 +13,19 @@ function LoginPanel() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const { FetchData } = usePostApi();
-  const { JWTdecode } = useJWTdecode();
-
   const HandleChangeInput = (e, setState) => {
     const value = e.target.value;
     setState(value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const Response = await FetchData("http://bookstoreapiazure.azurewebsites.net/api/Auth/Login", { Email: email, Password: password }, "JSON", false);
 
-      localStorage.setItem("AccessToken", Response.accessToken);
-      localStorage.setItem("accessExpirationDate", Response.accessExpirationDate);
-      localStorage.setItem("RefreshToken", Response.refreshToken);
-      localStorage.setItem("refreshExpirationDate", Response.refreshExpirationDate);
+    localStorage.setItem("AccessToken", true);
 
-      localStorage.setItem("Role", JWTdecode());
-      if (Response.accessToken) {
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log("Login not valid");
-    }
+    localStorage.setItem("RefreshToken", true);
+
+    window.location.reload();
   };
 
   const handleNavigation = (nav) => {
