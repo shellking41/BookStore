@@ -1,0 +1,8 @@
+.Icon {
+  color: rgb(255, 255, 255);
+  transition: color 200ms ease-in-out;
+}
+
+.Icon:hover {
+  color: black;
+}
