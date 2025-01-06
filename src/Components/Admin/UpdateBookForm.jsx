@@ -14,17 +14,21 @@ function UpdateBookForm({ id, setUpdateRequired }) {
   const handleChangeDescription = (e) => {
     setDescription(e.target.value);
   };
-  const handleChangePageCount = (e) => {
-    setPage(e.target.value);
+
+  const handleSubmit = () => {
+    let Data = JSON.parse(localStorage.getItem("Products"));
+    const NewDATA = Data.map((item, index) => {
+      if (index === id) {
+        console.log(item);
+        return (item = { Title: Title, Description: Description });
+      }
+      return item;
+    });
+    localStorage.setItem("Products", JSON.stringify(NewDATA));
+    setUpdateRequired({ WantToUpdate: false, id: id });
+    window.location.reload();
   };
-  const handleSubmit = async () => {
-    try {
-      await PutApi(`http://bookstoreapiazure.azurewebsites.net/api/Book/UpdateBook/${id}`, localStorage.getItem("AccessToken"), { title: Title, description: Description, pages: Page });
-      setUpdateRequired({ WantToUpdate: false, id: id });
-    } catch (error) {
-      console.log("Something os Wrong");
-    }
-  };
+
   const handleCancel = () => {
     setUpdateRequired({ WantToUpdate: false, id: id });
   };
@@ -37,8 +41,6 @@ function UpdateBookForm({ id, setUpdateRequired }) {
       <label htmlFor="Description">Description</label>
       <input id="Description" type="text" placeholder="Description" onChange={(e) => handleChangeDescription(e)} />
 
-      <label htmlFor="Description">Page Count</label>
-      <input id="PageCount" type="Number" placeholder="Page Count" onChange={(e) => handleChangePageCount(e)} />
       <button onClick={handleSubmit}>Submit</button>
       <button onClick={handleCancel}>Cancel</button>
     </div>

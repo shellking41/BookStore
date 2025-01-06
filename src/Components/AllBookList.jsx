@@ -27,10 +27,6 @@ function AllBookList() {
     localStorage.setItem("CurrentPage", 1);
   }
 
-  useEffect(() => {
-    console.log(AllBookListState);
-  }, [AllBookListState]);
-
   if (!AllBookListState) {
     return <p>Wait</p>;
   }

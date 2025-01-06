@@ -11,8 +11,8 @@ function LogOutButton() {
   const AccessToken = localStorage.getItem("AccessToken");
 
   const handleLogOut = async () => {
-    localStorage.clear();
-
+    localStorage.removeItem("AccessToken");
+    localStorage.removeItem("RefreshToken");
     if (!localStorage.getItem("AccessToken")) {
       localStorage.removeItem("CurrentPage");
     }
